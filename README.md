@@ -49,56 +49,15 @@ This project is applies core Solidity concepts such as:
 
 ## 🧱 Contract Structure
 
-### Constants
+The contract follows a simple, modular design:
 
-* `MAX_TICKETS_PER_ADDRESS`: Maximum tickets per user
-* `MAX_SEAT_NUMBER`: Maximum seat number allowed
-* `TOTAL_TICKETS`: Total tickets available
+**Ticket model**: Each ticket is stored as a struct containing an ID, owner, and seat number.
 
-### State Variables
+**State tracking**: Uses mappings to store tickets, track purchases per address, and ensure seat uniqueness.
 
-* `remainingTickets`: Tracks remaining supply
-* `nextTicketId`: Auto-incrementing ticket ID
+**Validation logic**: Core rules (availability, limits, seat validity) are enforced via modifiers.
 
-### Struct
-
-```solidity
-struct Ticket {
-    uint256 id;
-    address owner;
-    uint256 seatNumber;
-}
-```
-
-### Mappings
-
-* `tickets`: Stores all tickets by ID
-* `ticketsBoughtPerAddress`: Tracks purchases per user
-* `seatTaken`: Tracks whether a seat is already sold
-
-### Modifiers
-
-* `checkRemainingTickets`
-* `checkTicketBuyingLimit`
-* `checkSeatAvailable`
-* `checkSeatNumberInRange`
-
-These enforce all business rules before executing the purchase.
-
-### Main Function
-
-#### `buyTicket(uint256 seatNumber_)`
-
-Handles the full purchase flow:
-
-* Validates constraints
-* Creates and stores ticket
-* Updates state
-* Emits events
-
-Returns the created `Ticket`.
-
----
+**Event system**: Emits events to track ticket purchases and detect when the event is sold out.
 
 ## 🧪 How to Test in Remix
 
@@ -106,14 +65,14 @@ Returns the created `Ticket`.
 
 Go to: [https://remix.ethereum.org](https://remix.ethereum.org)
 
----
+
 
 ### 2️⃣ Import the Contract
 
 * Create a new file: `TicketSelling.sol`
 * Paste the contract code
 
----
+
 
 ### 3️⃣ Compile
 
@@ -121,7 +80,7 @@ Go to: [https://remix.ethereum.org](https://remix.ethereum.org)
 * Select version `0.8.30`
 * Click **Compile**
 
----
+
 
 ### 4️⃣ Deploy
 
@@ -129,7 +88,7 @@ Go to: [https://remix.ethereum.org](https://remix.ethereum.org)
 * Environment: `Remix VM (London)`
 * Click **Deploy**
 
----
+
 
 ### 5️⃣ Interact with the Contract
 
@@ -146,7 +105,7 @@ Go to: [https://remix.ethereum.org](https://remix.ethereum.org)
 * Buying more than 3 tickets → ❌ revert
 * When sold out → emits `EventSoldOut`
 
----
+
 
 ### 6️⃣ Read Contract State
 
@@ -157,16 +116,16 @@ You can inspect:
 * `ticketsBoughtPerAddress(address)`
 * `seatTaken(seatNumber)`
 
----
+
 
 ## 🔐 Notes & Limitations
 
-* This contract does **not handle payments (ETH)** — purely logical simulation
+* This contract **does not handle payments (ETH)** — purely logical simulation
 * No ticket transfer or resale functionality
 * No access control (anyone can buy tickets)
 * No off-chain integration (frontend/UI)
 
----
+
 
 ## 🚀 Possible Improvements
 
@@ -179,7 +138,7 @@ If you want to extend this project:
 * 🌐 Build a frontend (React + ethers.js)
 * 🧪 Add automated tests (Hardhat / Foundry)
 
----
+
 
 ## 📄 License
 
